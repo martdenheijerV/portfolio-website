@@ -3,9 +3,9 @@
    ===================================================== */
 :root {
   /* Colors */
-  --color-bg: #0f0f0f;
-  --color-surface: #1a1a1a;
-  --color-border: #2a2a2a;
+  --color-bg: #08101f;
+  --color-surface: #0d1829;
+  --color-border: #1a2a42;
   --color-text: #e8e8e8;
   --color-muted: #888;
   --color-accent: #6c63ff;
@@ -89,7 +89,7 @@ header {
   left: 0;
   right: 0;
   height: var(--nav-height);
-  background-color: rgba(15, 15, 15, 0.85);
+  background-color: rgba(8, 16, 31, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-border);
