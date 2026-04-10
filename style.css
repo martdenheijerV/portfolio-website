@@ -171,11 +171,123 @@ h2 {
    Hero
    ===================================================== */
 #hero {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   min-height: 100svh;
   padding-block: 0;
   padding-top: var(--nav-height);
+}
+
+/* Keep content above the gradient layer */
+#hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* =====================================================
+   Hero Gradient Animation
+   Technique: layered radial orbs + blur + noise texture
+   Inspired by: Apple, Stripe, Linear, Vercel
+   ===================================================== */
+.hero-gradient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Micro-noise texture — the detail that makes it feel premium */
+.hero-gradient::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+/* Base orb styles */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  will-change: transform;
+}
+
+/* Orb 1 — brand purple, top-left, largest */
+.orb-1 {
+  width: 750px;
+  height: 750px;
+  background: radial-gradient(circle, rgba(108, 99, 255, 0.55) 0%, transparent 70%);
+  top: -220px;
+  left: -180px;
+  animation: orbFloat1 22s ease-in-out infinite alternate;
+}
+
+/* Orb 2 — deep blue, right side */
+.orb-2 {
+  width: 620px;
+  height: 620px;
+  background: radial-gradient(circle, rgba(30, 64, 175, 0.5) 0%, transparent 70%);
+  top: 5%;
+  right: -220px;
+  animation: orbFloat2 28s ease-in-out infinite alternate;
+}
+
+/* Orb 3 — indigo, bottom-center */
+.orb-3 {
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(67, 56, 202, 0.45) 0%, transparent 70%);
+  bottom: -120px;
+  left: 15%;
+  animation: orbFloat3 19s ease-in-out infinite alternate;
+}
+
+/* Orb 4 — sky blue accent, subtle depth */
+.orb-4 {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.18) 0%, transparent 70%);
+  bottom: 25%;
+  right: 8%;
+  animation: orbFloat4 24s ease-in-out infinite alternate;
+}
+
+@keyframes orbFloat1 {
+  0%   { transform: translate(0px,   0px)   scale(1);    }
+  25%  { transform: translate(70px,  90px)  scale(1.06); }
+  50%  { transform: translate(130px, 30px)  scale(0.96); }
+  75%  { transform: translate(50px,  130px) scale(1.04); }
+  100% { transform: translate(90px,  -50px) scale(1.08); }
+}
+
+@keyframes orbFloat2 {
+  0%   { transform: translate(0px,   0px)   scale(1);    }
+  25%  { transform: translate(-90px, 70px)  scale(1.05); }
+  50%  { transform: translate(-50px, 140px) scale(0.94); }
+  75%  { transform: translate(-110px,50px)  scale(1.07); }
+  100% { transform: translate(-70px, -90px) scale(0.97); }
+}
+
+@keyframes orbFloat3 {
+  0%   { transform: translate(0px,  0px)   scale(1);    }
+  33%  { transform: translate(-70px,-90px) scale(1.08); }
+  66%  { transform: translate(90px, -50px) scale(0.93); }
+  100% { transform: translate(-50px,-110px)scale(1.05); }
+}
+
+@keyframes orbFloat4 {
+  0%   { transform: translate(0px,   0px)  scale(1);    }
+  50%  { transform: translate(-90px,-70px) scale(1.12); }
+  100% { transform: translate(-50px, 90px) scale(0.92); }
+}
+
+/* Respect accessibility — no animation for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .orb { animation: none; }
 }
 
 #hero h1 {
